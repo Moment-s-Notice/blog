@@ -11,9 +11,13 @@ function App() {
   });
 
   useEffect(() => {
+    if (!(document.cookie)) {
+      document.cookie = "night=0"
+    }
+
     setState({
       loaded: false,
-      night: 0,
+      night: parseInt(document.cookie[6]),
       posts: [],
       display: [],
     });
@@ -60,7 +64,7 @@ function App() {
 
   return (
     <div className='background' style={{ filter: `invert(${state.night})` }}>
-      <span className="material-symbols-outlined" onClick={() => { setState(prevState => ({ ...prevState, night: 1 - state.night })) }}>
+      <span className="material-symbols-outlined" onClick={() => { document.cookie = `night=${1 - state.night}`; setState(prevState => ({ ...prevState, night: 1 - state.night })) }}>
         dark_mode
       </span>
       <div className='container'>
